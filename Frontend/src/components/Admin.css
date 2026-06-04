@@ -1,0 +1,81 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.admin-sidebar {
+  width: 260px;
+  background-color: #fff;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030; /* Above navbar */
+  padding-top: 56px; /* Space for main navbar */
+}
+
+.admin-content {
+  margin-left: 260px;
+  flex-grow: 1;
+  padding: 2rem;
+  padding-top: calc(56px + 2rem); /* Space for main navbar */
+  width: calc(100% - 260px);
+}
+
+.admin-sidebar .nav-link {
+  color: #495057;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-left: 3px solid transparent;
+}
+
+.admin-sidebar .nav-link:hover {
+  background-color: #f1f3f5;
+  color: #198754;
+}
+
+.admin-sidebar .nav-link.active {
+  color: #198754;
+  font-weight: 700;
+  background-color: #e9f7ef;
+  border-left-color: #198754;
+}
+
+.admin-sidebar .nav-link .bi {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.admin-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.admin-sidebar-header h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.stats-card.admin-stat .stats-icon {
+  width: 60px;
+  height: 60px;
+  font-size: 1.75rem;
+}
+
+@media (max-width: 992px) {
+  .admin-sidebar {
+    /* On smaller screens, you might want to hide it or make it collapsible */
+    display: none;
+  }
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}

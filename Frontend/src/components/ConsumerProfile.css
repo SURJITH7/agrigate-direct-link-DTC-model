@@ -1,0 +1,12 @@
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  flex-direction: column;
+}
+
+.card .list-group-flush .list-group-item {
+  background-color: transparent;
+}
