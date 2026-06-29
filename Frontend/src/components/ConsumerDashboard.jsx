@@ -53,7 +53,7 @@ function ConsumerDashboard() {
       setError(null);
       try {
         const productsRes = await privateFetch(
-          "http://localhost:5000/api/products",
+          "https://agrigate-backend-drsi.onrender.com/api/products",
         );
 
         if (!productsRes.ok) {
@@ -167,7 +167,7 @@ function ConsumerDashboard() {
                           className="d-block w-100 rounded carousel-product-image"
                           src={
                             product.image
-                              ? `http://localhost:5000${product.image}`
+                              ? `https://agrigate-backend-drsi.onrender.com${product.image}`
                               : "https://via.placeholder.com/800x350"
                           }
                           alt={product.name}
@@ -242,7 +242,7 @@ function ConsumerDashboard() {
                       variant="top"
                       src={
                         product.image
-                          ? `http://localhost:5000${product.image}`
+                          ? `https://agrigate-backend-drsi.onrender.com${product.image}`
                           : "https://via.placeholder.com/400x200"
                       }
                       alt={product.name}

@@ -280,7 +280,7 @@ For large datasets (1000+ farmers):
 1. Check if farmers have valid `latitude` & `longitude` in DB
 2. Verify user has GPS permission granted
 3. Check browser console for errors
-4. Test endpoint directly: `GET http://localhost:5000/api/users?role=farmer`
+4. Test endpoint directly: `GET https://agrigate-backend-drsi.onrender.com/api/users?role=farmer`
 
 ### Routes not showing?
 

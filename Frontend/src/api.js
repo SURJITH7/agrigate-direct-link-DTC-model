@@ -1,6 +1,6 @@
 // Minimal API helper to replace a missing axios instance.
 // Exports an object with get/post/put/delete returning { data } like axios.
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const BASE = import.meta.env.VITE_API_URL || "https://agrigate-backend-drsi.onrender.com";
 
 const defaults = { baseURL: BASE };
 

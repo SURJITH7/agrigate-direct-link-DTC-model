@@ -14,6 +14,7 @@
 
 ```bash
 cd c:\Users\sanja\OneDrive\Desktop\AgriGate\Frontend
+#C:\Agrigate_Project\AgriGate\Frontend
 
 # Kill any running instance first
 # Then:

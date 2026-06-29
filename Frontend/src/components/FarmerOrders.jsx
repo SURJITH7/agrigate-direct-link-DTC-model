@@ -31,7 +31,7 @@ function FarmerOrders() {
       setError("");
       try {
         // This endpoint should return orders filtered for the current farmer
-        const res = await privateFetch("http://localhost:5000/api/orders");
+        const res = await privateFetch("https://agrigate-backend-drsi.onrender.com/api/orders");
         if (!res.ok) throw new Error("Failed to fetch orders.");
         const data = await res.json();
         setOrders(Array.isArray(data) ? data : []);
@@ -112,7 +112,7 @@ function FarmerOrders() {
 
     try {
       const res = await privateFetch(
-        `http://localhost:5000/api/orders/${orderId}/status`,
+        `https://agrigate-backend-drsi.onrender.com/api/orders/${orderId}/status`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

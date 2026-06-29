@@ -187,7 +187,7 @@ function TestComponent() {
 **Solution:**
 
 1. Verify farmers have valid `latitude` and `longitude` in DB
-2. Test API endpoint: `GET http://localhost:5000/api/users?role=farmer`
+2. Test API endpoint: `GET https://agrigate-backend-drsi.onrender.com/api/users?role=farmer`
 3. Check if farmers are actually stored in database
 4. Verify network requests in browser DevTools
 
@@ -207,7 +207,7 @@ function TestComponent() {
 1. Verify route exists in `userRoutes.js`
 2. Check backend server is running
 3. Verify API base URL in `.env` file
-4. Test with curl: `curl http://localhost:5000/api/users?role=farmer`
+4. Test with curl: `curl https://agrigate-backend-drsi.onrender.com/api/users?role=farmer`
 
 ---
 

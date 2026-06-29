@@ -220,7 +220,7 @@ Tests verify:
 
 ## Prerequisites
 
-- Backend API running (default: http://localhost:5000)
+- Backend API running (default: https://agrigate-backend-drsi.onrender.com)
 - Database with farmers having latitude/longitude
 - Browser with geolocation support
 - HTTPS required in production (HTTP+localhost in dev)

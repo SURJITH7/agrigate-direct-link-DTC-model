@@ -231,7 +231,7 @@ Contract
 Core algorithm (trimmed):
 
 ```jsx
-const socket = io('http://localhost:5000', { withCredentials: true });
+const socket = io('https://agrigate-backend-drsi.onrender.com', { withCredentials: true });
 useEffect(() => { socket.on('updateLocations', data => setLocations(data || {})); return () => socket.off('updateLocations'); }, []);
 
 // Centering helper component

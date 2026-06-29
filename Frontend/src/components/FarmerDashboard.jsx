@@ -52,7 +52,7 @@ function FarmerDashboard() {
     setLoadingStats(true);
     try {
       const response = await privateFetch(
-        "http://localhost:5000/api/activity/stats"
+        "https://agrigate-backend-drsi.onrender.com/api/activity/stats"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch stats");
@@ -76,7 +76,7 @@ function FarmerDashboard() {
     setLoadingActivities(true);
     try {
       const response = await privateFetch(
-        "http://localhost:5000/api/activity/recent"
+        "https://agrigate-backend-drsi.onrender.com/api/activity/recent"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch activities");

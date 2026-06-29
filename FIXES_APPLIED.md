@@ -120,7 +120,7 @@ res.cookie("token", "", {
 ### Environment Configuration
 
 - **Frontend:** `http://localhost:5173` (Vite dev server)
-- **Backend:** `http://localhost:5000` (Express server)
+- **Backend:** `https://agrigate-backend-drsi.onrender.com` (Express server)
 - **Database:** MongoDB Atlas
 - **CORS:** Configured to allow credentials between frontend and backend
 

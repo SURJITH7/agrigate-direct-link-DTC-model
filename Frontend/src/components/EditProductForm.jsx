@@ -45,7 +45,7 @@ function EditProductForm() {
     const fetchProduct = async () => {
       try {
         const response = await privateFetch(
-          `http://localhost:5000/api/products/${id}`
+          `https://agrigate-backend-drsi.onrender.com/api/products/${id}`
         );
         const product = await response.json();
         setFormData({
@@ -95,7 +95,7 @@ function EditProductForm() {
       }
 
       const response = await privateFetch(
-        `http://localhost:5000/api/products/${id}`,
+        `https://agrigate-backend-drsi.onrender.com/api/products/${id}`,
         {
           method: "PUT",
           // Do not stringify FormData; let the browser set the Content-Type header.
@@ -246,7 +246,7 @@ function EditProductForm() {
                           <div className="mb-2">
                             <p className="fw-bold mb-1">Current Image:</p>
                             <img
-                              src={`http://localhost:5000${formData.image}`}
+                              src={`https://agrigate-backend-drsi.onrender.com${formData.image}`}
                               alt="Current product"
                               style={{
                                 width: "100px",

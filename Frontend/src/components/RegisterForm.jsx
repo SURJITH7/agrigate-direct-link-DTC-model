@@ -94,7 +94,7 @@ function RegisterForm({ userType }) {
           : { phone, method: "sms" };
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/send-otp",
+        "https://agrigate-backend-drsi.onrender.com/api/auth/send-otp",
         payload,
       );
       setOtpSent(true);
@@ -134,7 +134,7 @@ function RegisterForm({ userType }) {
           : { phone, otp, method: "sms" };
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+        "https://agrigate-backend-drsi.onrender.com/api/auth/verify-otp",
         payload,
       );
       setEmailVerified(true);
@@ -163,7 +163,7 @@ function RegisterForm({ userType }) {
           ? { email, method: "email" }
           : { phone, method: "sms" };
 
-      await axios.post("http://localhost:5000/api/auth/resend-otp", payload);
+      await axios.post("https://agrigate-backend-drsi.onrender.com/api/auth/resend-otp", payload);
       setOtp("");
       const message = verificationMethod === "email" ? "email" : "phone";
       setSuccess(`✓ New OTP sent to your ${message}. Check for the code.`);
@@ -289,7 +289,7 @@ function RegisterForm({ userType }) {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "https://agrigate-backend-drsi.onrender.com/api/users/register",
         formData,
         { withCredentials: true },
       );

@@ -164,7 +164,7 @@ function Cart({ cart, setCart, onClose }) {
                         <img
                           src={
                             item.image
-                              ? `http://localhost:5000${item.image}`
+                              ? `https://agrigate-backend-drsi.onrender.com${item.image}`
                               : "https://via.placeholder.com/60"
                           }
                           alt={item.name}

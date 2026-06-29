@@ -168,7 +168,7 @@ function PaymentPage() {
     // Create order on backend first
     try {
       const orderRes = await privateFetch(
-        "http://localhost:5000/api/payment/create-razorpay-order",
+        "https://agrigate-backend-drsi.onrender.com/api/payment/create-razorpay-order",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -230,7 +230,7 @@ function PaymentPage() {
           // Verify payment with backend
           try {
             const verifyRes = await privateFetch(
-              "http://localhost:5000/api/payment/verify-payment",
+              "https://agrigate-backend-drsi.onrender.com/api/payment/verify-payment",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -298,7 +298,7 @@ function PaymentPage() {
       },
     };
 
-    const response = await privateFetch("http://localhost:5000/api/orders", {
+    const response = await privateFetch("https://agrigate-backend-drsi.onrender.com/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderPayload),

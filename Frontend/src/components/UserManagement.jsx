@@ -31,7 +31,7 @@ function UserManagement() {
       try {
         // This is a placeholder. You'll need to create this API endpoint.
         const response = await privateFetch(
-          "http://localhost:5000/api/admin/users",
+          "https://agrigate-backend-drsi.onrender.com/api/admin/users",
         );
         if (response.ok) {
           const data = await response.json();
@@ -74,7 +74,7 @@ function UserManagement() {
     setModalSuccess("");
     try {
       const response = await privateFetch(
-        `http://localhost:5000/api/admin/users/${selectedUser._id}`,
+        `https://agrigate-backend-drsi.onrender.com/api/admin/users/${selectedUser._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -96,7 +96,7 @@ function UserManagement() {
     setModalError("");
     try {
       const response = await privateFetch(
-        `http://localhost:5000/api/admin/users/${selectedUser._id}`,
+        `https://agrigate-backend-drsi.onrender.com/api/admin/users/${selectedUser._id}`,
         {
           method: "DELETE",
         },

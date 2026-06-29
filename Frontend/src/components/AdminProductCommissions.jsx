@@ -30,7 +30,7 @@ function AdminProductCommissions() {
     try {
       setLoading(true);
       setError("");
-      const response = await privateFetch("http://localhost:5000/api/products");
+      const response = await privateFetch("https://agrigate-backend-drsi.onrender.com/api/products");
       if (response.ok) {
         const data = await response.json();
         setProducts(data);
@@ -69,7 +69,7 @@ function AdminProductCommissions() {
 
     try {
       const response = await privateFetch(
-        `http://localhost:5000/api/products/${selectedProduct._id}/commission`,
+        `https://agrigate-backend-drsi.onrender.com/api/products/${selectedProduct._id}/commission`,
         {
           method: "PUT",
           headers: {

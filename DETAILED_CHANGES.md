@@ -92,7 +92,7 @@
       );
       try {
         const res = await privateFetch(
-          "http://localhost:5000/api/users/location",
+          "https://agrigate-backend-drsi.onrender.com/api/users/location",
           {
             method: "PUT",
             headers: {
@@ -154,7 +154,7 @@ console.log(document.cookie);
 
 ```bash
 # Check if server is running and accepts requests
-curl -X GET http://localhost:5000/
+curl -X GET https://agrigate-backend-drsi.onrender.com/
 
 # Response should be: "Server is running"
 ```
@@ -186,7 +186,7 @@ curl -X GET http://localhost:5000/
 
 - `sameSite: "lax"` - Allows cookie in navigation + top-level requests
 - `secure: false` - Works with http://localhost
-- Cookie sent to `http://localhost:5000` from `http://localhost:5173`
+- Cookie sent to `https://agrigate-backend-drsi.onrender.com` from `http://localhost:5173`
 
 ### Production (NODE_ENV === "production")
 

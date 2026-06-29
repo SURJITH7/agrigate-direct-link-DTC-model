@@ -17,7 +17,7 @@
 
 ```bash
 # Replace TOKEN with your JWT token from login
-curl -X POST http://localhost:5000/api/payment/create-razorpay-order \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/payment/create-razorpay-order \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -41,7 +41,7 @@ curl -X POST http://localhost:5000/api/payment/create-razorpay-order \
 
 ### Using Postman
 
-1. Create new POST request to `http://localhost:5000/api/payment/create-razorpay-order`
+1. Create new POST request to `https://agrigate-backend-drsi.onrender.com/api/payment/create-razorpay-order`
 2. Headers tab:
    - Key: `Authorization`
    - Value: `Bearer YOUR_JWT_TOKEN`
@@ -64,7 +64,7 @@ curl -X POST http://localhost:5000/api/payment/create-razorpay-order \
 ### Using cURL
 
 ```bash
-curl -X POST http://localhost:5000/api/payment/verify-payment \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/payment/verify-payment \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{

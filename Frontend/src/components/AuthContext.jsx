@@ -20,8 +20,8 @@ export const AuthProvider = ({ children }) => {
         const storedUser = user || JSON.parse(localStorage.getItem("user"));
         const profileUrl =
           storedUser && storedUser.role === "admin"
-            ? "http://localhost:5000/api/admin/profile"
-            : "http://localhost:5000/api/users/profile";
+            ? "https://agrigate-backend-drsi.onrender.com/api/admin/profile"
+            : "https://agrigate-backend-drsi.onrender.com/api/users/profile";
         const res = await fetch(profileUrl, {
           credentials: "include",
           headers: {
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:5000/api/users/logout", {
+      await fetch("https://agrigate-backend-drsi.onrender.com/api/users/logout", {
         method: "POST",
         credentials: "include",
       });

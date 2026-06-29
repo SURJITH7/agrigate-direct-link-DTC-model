@@ -50,7 +50,7 @@ async function testDistance() {
 // TEST 2: Check if API endpoints are working
 // ============================================================================
 async function testAPI() {
-  const API_BASE = "http://localhost:5000";
+  const API_BASE = "https://agrigate-backend-drsi.onrender.com";
 
   try {
     console.log("🔍 Testing API Endpoints...");
@@ -86,7 +86,7 @@ async function testAPI() {
     return true;
   } catch (error) {
     console.error("❌ API test failed:", error.message);
-    console.error("   Make sure backend is running at http://localhost:5000");
+    console.error("   Make sure backend is running at https://agrigate-backend-drsi.onrender.com");
     return false;
   }
 }

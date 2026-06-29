@@ -89,7 +89,7 @@ npm run dev
 ### Check if backend is running
 
 ```bash
-curl -X GET http://localhost:5000/
+curl -X GET https://agrigate-backend-drsi.onrender.com/
 ```
 
 Should return: "Server is running"
@@ -97,7 +97,7 @@ Should return: "Server is running"
 ### Test profile endpoint (replace TOKEN with actual cookie)
 
 ```bash
-curl -X GET http://localhost:5000/api/users/profile \
+curl -X GET https://agrigate-backend-drsi.onrender.com/api/users/profile \
   -H "Cookie: token=YOUR_TOKEN_HERE"
 ```
 

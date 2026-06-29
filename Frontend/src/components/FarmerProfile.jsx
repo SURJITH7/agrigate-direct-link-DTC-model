@@ -36,7 +36,7 @@ function FarmerProfile() {
       setLoading(true);
       try {
         const res = await privateFetch(
-          "http://localhost:5000/api/users/profile",
+          "https://agrigate-backend-drsi.onrender.com/api/users/profile",
         );
         if (!res.ok) throw new Error("Failed to fetch profile");
         const data = await res.json();
@@ -51,7 +51,7 @@ function FarmerProfile() {
 
     const fetchProductCategories = async () => {
       try {
-        const res = await privateFetch("http://localhost:5000/api/products");
+        const res = await privateFetch("https://agrigate-backend-drsi.onrender.com/api/products");
         if (!res.ok) return;
         const products = await res.json();
         const categories = [...new Set(products.map((p) => p.category))].slice(
@@ -91,7 +91,7 @@ function FarmerProfile() {
 
     try {
       const res = await privateFetch(
-        "http://localhost:5000/api/users/profile",
+        "https://agrigate-backend-drsi.onrender.com/api/users/profile",
         {
           method: "PUT",
           // No 'Content-Type' header, browser sets it for FormData
@@ -227,7 +227,7 @@ function FarmerProfile() {
                     ? // if backend already returned absolute url, use it; otherwise prefix with localhost
                       profile.profilePic.startsWith("http")
                       ? profile.profilePic
-                      : `http://localhost:5000${profile.profilePic}`
+                      : `https://agrigate-backend-drsi.onrender.com${profile.profilePic}`
                     : `https://ui-avatars.com/api/?name=${encodeURIComponent(
                         profile.fullName,
                       )}&background=28a745&color=fff&size=128`

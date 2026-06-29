@@ -17,7 +17,7 @@ function LocationSender() {
       // console.log("Broadcasting location:", location);
 
       /* 
-      fetch("http://localhost:5000/api/live-tracking/update", {
+      fetch("https://agrigate-backend-drsi.onrender.com/api/live-tracking/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

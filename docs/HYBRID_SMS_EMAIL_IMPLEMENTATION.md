@@ -229,7 +229,7 @@ TWILIO_PHONE=+1-555-867-5309
 ### Send OTP (Email)
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/send-otp \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/auth/send-otp \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -251,7 +251,7 @@ curl -X POST http://localhost:5000/api/auth/send-otp \
 ### Send OTP (SMS)
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/send-otp \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/auth/send-otp \
   -H "Content-Type: application/json" \
   -d '{
     "phone": "9876543210",
@@ -273,7 +273,7 @@ curl -X POST http://localhost:5000/api/auth/send-otp \
 ### Verify OTP
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/verify-otp \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/auth/verify-otp \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",
@@ -297,7 +297,7 @@ curl -X POST http://localhost:5000/api/auth/verify-otp \
 ### Resend OTP
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/resend-otp \
+curl -X POST https://agrigate-backend-drsi.onrender.com/api/auth/resend-otp \
   -H "Content-Type: application/json" \
   -d '{
     "email": "user@example.com",

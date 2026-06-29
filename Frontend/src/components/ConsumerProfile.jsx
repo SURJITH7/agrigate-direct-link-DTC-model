@@ -31,7 +31,7 @@ function ConsumerProfile() {
       setLoading(true);
       try {
         const res = await privateFetch(
-          "http://localhost:5000/api/users/profile"
+          "https://agrigate-backend-drsi.onrender.com/api/users/profile"
         );
         if (!res.ok) throw new Error("Failed to fetch profile");
         const data = await res.json();
@@ -70,7 +70,7 @@ function ConsumerProfile() {
 
     try {
       const res = await privateFetch(
-        "http://localhost:5000/api/users/profile",
+        "https://agrigate-backend-drsi.onrender.com/api/users/profile",
         {
           method: "PUT",
           body: submissionData,
@@ -163,7 +163,7 @@ function ConsumerProfile() {
                   profile.profilePic // The backend now provides an absolute URL
                     ? profile.profilePic.startsWith("http")
                       ? profile.profilePic
-                      : `http://localhost:5000${profile.profilePic}`
+                      : `https://agrigate-backend-drsi.onrender.com${profile.profilePic}`
                     : `https://ui-avatars.com/api/?name=${encodeURIComponent(
                         profile.fullName
                       )}&background=667eea&color=fff&size=128`

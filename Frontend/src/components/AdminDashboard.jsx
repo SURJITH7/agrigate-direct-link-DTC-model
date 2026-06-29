@@ -65,7 +65,7 @@ function AdminDashboard() {
       try {
         // This is a placeholder. You'll need to create this API endpoint.
         const response = await privateFetch(
-          "http://localhost:5000/api/admin/stats",
+          "https://agrigate-backend-drsi.onrender.com/api/admin/stats",
         );
         if (response.ok) {
           const data = await response.json();

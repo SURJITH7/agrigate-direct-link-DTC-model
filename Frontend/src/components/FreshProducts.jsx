@@ -269,7 +269,7 @@ function FreshProducts() {
                             <img
                               src={
                                 product.image
-                                  ? `http://localhost:5000${product.image}`
+                                  ? `https://agrigate-backend-drsi.onrender.com${product.image}`
                                   : "https://via.placeholder.com/400x300?text=No+Image"
                               }
                               alt={product.name}

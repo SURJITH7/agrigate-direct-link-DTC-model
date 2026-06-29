@@ -159,7 +159,7 @@ Saves user's current location.
 ### ❌ No farmers showing on map
 
 1. Check farmers have `latitude` & `longitude` in database
-2. Test: `curl http://localhost:5000/api/users?role=farmer`
+2. Test: `curl https://agrigate-backend-drsi.onrender.com/api/users?role=farmer`
 3. Add test farmers if none exist
 4. Restart frontend
 

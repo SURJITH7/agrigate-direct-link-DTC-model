@@ -253,7 +253,7 @@ window.agrigate.showUsageGuide()
 ### Environment Variables (if needed)
 
 ```
-VITE_API_URL=http://localhost:5000
+VITE_API_URL=https://agrigate-backend-drsi.onrender.com
 ```
 
 ### Map Customization
@@ -303,7 +303,7 @@ VITE_API_URL=http://localhost:5000
 ### No farmers showing?
 
 1. Check if farmers have `latitude` & `longitude` in DB
-2. Test endpoint: `curl http://localhost:5000/api/users?role=farmer`
+2. Test endpoint: `curl https://agrigate-backend-drsi.onrender.com/api/users?role=farmer`
 3. Verify backend server running
 4. Check browser console for errors
 

@@ -53,7 +53,7 @@ function AddProductForm() {
       payload.append("image", formData.image);
     }
     try {
-      const res = await privateFetch("http://localhost:5000/api/products", {
+      const res = await privateFetch("https://agrigate-backend-drsi.onrender.com/api/products", {
         method: "POST",
         body: payload,
       });

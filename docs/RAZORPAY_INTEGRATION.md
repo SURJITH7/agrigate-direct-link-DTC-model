@@ -203,7 +203,7 @@ const isLoaded = await loadRazorpayScript();
 
 // Create Razorpay order
 const orderRes = await privateFetch(
-  "http://localhost:5000/api/payment/create-razorpay-order",
+  "https://agrigate-backend-drsi.onrender.com/api/payment/create-razorpay-order",
   {
     method: "POST",
     body: JSON.stringify({ amount: 100, currency: "INR" }),

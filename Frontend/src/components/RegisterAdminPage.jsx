@@ -33,7 +33,7 @@ function RegisterAdminPage() {
     setSuccess("");
     try {
       const res = await privateFetch(
-        "http://localhost:5000/api/admin/register",
+        "https://agrigate-backend-drsi.onrender.com/api/admin/register",
         {
           method: "POST",
           headers: {

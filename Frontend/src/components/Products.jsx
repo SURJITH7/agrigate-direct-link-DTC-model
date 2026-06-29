@@ -24,7 +24,7 @@ const Products = ({ cart, setCart }) => {
         // Use absolute backend URL by default; privateFetch handles session/cookies.
         // Keep this inside try/catch so network errors are handled gracefully.
         const response = await privateFetch(
-          "http://localhost:5000/api/products",
+          "https://agrigate-backend-drsi.onrender.com/api/products",
         );
         if (!response.ok) {
           throw new Error("Failed to fetch products");
@@ -112,7 +112,7 @@ const Products = ({ cart, setCart }) => {
             <Card className="h-100 product-card">
               <Card.Img
                 variant="top"
-                src={`http://localhost:5000${product.image}`}
+                src={`https://agrigate-backend-drsi.onrender.com${product.image}`}
                 alt={product.name} // Added alt attribute for accessibility
                 className="product-image"
               />

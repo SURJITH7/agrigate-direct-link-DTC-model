@@ -147,7 +147,7 @@ UPDATE_INTERVAL = 5000; // milliseconds (5 seconds)
 ### Socket.io Configuration
 
 ```javascript
-io("http://localhost:5000", {
+io("https://agrigate-backend-drsi.onrender.com", {
   withCredentials: true, // Send JWT token with connection
 });
 ```

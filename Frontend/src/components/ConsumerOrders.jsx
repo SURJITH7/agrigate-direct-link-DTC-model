@@ -24,7 +24,7 @@ function ConsumerOrders() {
     setError("");
     try {
       const res = await privateFetch(
-        "http://localhost:5000/api/orders/my-orders",
+        "https://agrigate-backend-drsi.onrender.com/api/orders/my-orders",
       );
       if (!res.ok) throw new Error("Failed to fetch orders.");
       const data = await res.json();
@@ -55,7 +55,7 @@ function ConsumerOrders() {
 
     try {
       const res = await privateFetch(
-        `http://localhost:5000/api/orders/${orderId}/mark-delivered`,
+        `https://agrigate-backend-drsi.onrender.com/api/orders/${orderId}/mark-delivered`,
         {
           method: "PUT",
         },
@@ -91,7 +91,7 @@ function ConsumerOrders() {
 
     try {
       const res = await privateFetch(
-        `http://localhost:5000/api/orders/${orderId}/cancel`,
+        `https://agrigate-backend-drsi.onrender.com/api/orders/${orderId}/cancel`,
         {
           method: "PUT",
         },

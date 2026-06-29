@@ -41,9 +41,14 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+const FRONTEND_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://YOUR-FRONTEND-URL.onrender.com" // or your Vercel URL
+    : "http://localhost:5173";
+
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: FRONTEND_URL,
     credentials: true,
   }),
 );
@@ -88,7 +93,7 @@ app.get("/", (req, res) => {
 const server = http.createServer(app);
 const io = new IOServer(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true,
   },
 });
