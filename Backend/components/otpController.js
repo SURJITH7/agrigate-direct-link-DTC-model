@@ -21,13 +21,32 @@ let emailConfigError = null;
 
 try {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    // emailTransporter = nodemailer.createTransport({
+    //   service: process.env.EMAIL_SERVICE || "gmail",
+    //   auth: {
+    //     user: process.env.EMAIL_USER,
+    //     pass: process.env.EMAIL_PASSWORD,
+    //   },
+    // });
     emailTransporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || "gmail",
-      auth: {
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    family: 4,   // Force IPv4
+    auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
-      },
+    },
+  });
+    emailTransporter.verify((error, success) => {
+      if (error) {
+        console.error("❌ SMTP Verify Error:");
+        console.error(error);
+      } else {
+        console.log("✅ SMTP Server is ready");
+      }
     });
+
     console.log("✓ Email transporter configured for:", process.env.EMAIL_USER);
   } else {
     emailConfigError =
