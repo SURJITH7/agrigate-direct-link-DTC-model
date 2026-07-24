@@ -297,9 +297,9 @@ function RegisterForm({ userType }) {
       setSuccess("Registration successful! Redirecting to dashboard...");
       setTimeout(() => {
         if (formData.role === "farmer") {
-          navigate("/farmer");
+          navigate("/farmer/dashboard");
         } else if (formData.role === "consumer") {
-          navigate("/consumer");
+          navigate("/consumer/dashboard");
         } else {
           navigate("/login");
         }

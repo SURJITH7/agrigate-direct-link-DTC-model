@@ -29,15 +29,18 @@ try {
     //   },
     // });
     emailTransporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    family: 4,   // Force IPv4
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-  });
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  family: 4,              // Force IPv4
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
     emailTransporter.verify((error, success) => {
       if (error) {
         console.error("❌ SMTP Verify Error:");

@@ -57,10 +57,22 @@ router.get("/", async (req, res) => {
       );
       res.json(products);
     } else if (req.user.role === "farmer") {
-      // A farmer should only see their own products
-      const products = await Product.find({ farmerId: req.user._id });
-      res.json(products);
-    } else {
+
+  console.log("==============");
+  console.log("Logged in user:");
+  console.log(req.user);
+
+  const allProducts = await Product.find({});
+  console.log("All Products:");
+  console.log(allProducts);
+
+  const products = await Product.find({ farmerId: req.user._id });
+
+  console.log("Products for this farmer:");
+  console.log(products);
+
+  res.json(products);
+} else {
       // A consumer should see all 'approved' products
       // We also want to populate the farmer's name for display
       const products = await Product.find({ status: "approved" })

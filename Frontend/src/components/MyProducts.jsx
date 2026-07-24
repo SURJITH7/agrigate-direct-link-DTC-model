@@ -16,17 +16,22 @@ const MyProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const { data } = await api.get("/api/products");
-        setProducts(data);
-      } catch (err) {
-        setError(t("errorFetchingProducts"));
-        console.error("Failed to fetch products:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  try {
+    setLoading(true);
+
+    const response = await api.get("/api/products");
+
+    console.log("API Response:", response);
+    console.log("Products:", response.data);
+
+    setProducts(response.data);
+  } catch (err) {
+    console.error(err);
+    setError(t("errorFetchingProducts"));
+  } finally {
+    setLoading(false);
+  }
+};
 
     fetchProducts();
   }, [t]);
