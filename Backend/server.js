@@ -41,13 +41,13 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// const FRONTEND_URL =
-//   process.env.NODE_ENV === "production"
-//     ? "https://YOUR-FRONTEND-URL.onrender.com" // or your Vercel URL
-//     : "http://localhost:5173";
-
 const FRONTEND_URL =
-  process.env.FRONTEND_URL || "http://localhost:5173";
+  process.env.NODE_ENV === "production"
+    ? "https://agrigate-frontend.onrender.com"
+    : "http://localhost:5173";
+
+// const FRONTEND_URL =
+//   process.env.FRONTEND_URL || "http://localhost:5173";
 
 app.use(
   cors({
