@@ -165,10 +165,11 @@ const loginAdmin = asyncHandler(async (req, res) => {
 // @access  Public
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("token", "", {
-    httpOnly: true,
-    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-    expires: new Date(0),
-  });
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  expires: new Date(0),
+});
   res.status(200).json({ message: "Logged out successfully" });
 });
 

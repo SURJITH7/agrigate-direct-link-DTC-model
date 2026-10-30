@@ -34,6 +34,7 @@ import { protect, optionalProtect, isFarmer, isAdmin } from "./middleware/authMi
 connectDB();
 
 const app = express();
+app.set("trust proxy", 1);
 
 // Ensure the uploads directory exists
 const uploadsDir = path.join(__dirname, "public/images");

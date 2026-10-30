@@ -11,12 +11,13 @@ const generateToken = (res, userId, returnToken = false) => {
     expiresIn: "1d",
   });
   if (res) {
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
+    const isProd = process.env.NODE_ENV === "production";
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: isProd,
+  sameSite: isProd ? "none" : "lax",
+  maxAge: 24 * 60 * 60 * 1000,
+});
   }
   if (returnToken) {
     return token;
