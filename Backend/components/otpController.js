@@ -491,7 +491,7 @@ dotenv.config({
 });
 
 import asyncHandler from "express-async-handler";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import twilio from "twilio";
 import otpGenerator from "otp-generator";
 import validator from "validator";
@@ -499,20 +499,26 @@ import validator from "validator";
 import OTP from "../models/OTP.js";
 
 // ============================================
-// RESEND EMAIL CONFIGURATION
+// GMAIL SMTP EMAIL CONFIGURATION
 // ============================================
 
-let resend = null;
+let emailTransporter = null;
 
 try {
-  if (process.env.RESEND_API_KEY) {
-    resend = new Resend(process.env.RESEND_API_KEY);
-    console.log("✓ Resend email service configured");
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+    emailTransporter = nodemailer.createTransport({
+      service: process.env.EMAIL_SERVICE || "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+    console.log("✓ Gmail SMTP email service configured");
   } else {
-    console.warn("⚠️ RESEND_API_KEY is missing");
+    console.warn("⚠️ Gmail SMTP not configured (EMAIL_USER or EMAIL_PASSWORD missing)");
   }
 } catch (error) {
-  console.error("❌ Resend initialization failed:", error.message);
+  console.error("❌ Gmail SMTP initialization failed:", error.message);
 }
 
 // ============================================
@@ -624,19 +630,18 @@ const sendOTP = asyncHandler(async (req, res) => {
       throw new Error("Failed to generate OTP");
     }
 
-    // Send OTP using Resend
+    // Send OTP using Gmail SMTP
     try {
-      const fromEmail = process.env.RESEND_FROM_EMAIL || "AgriGate <onboarding@resend.dev>";
-
-      // Warning: onboarding@resend.dev only allows sending to the account owner's email
-      // To send to other recipients, verify a domain at resend.com/domains and set RESEND_FROM_EMAIL
-      if (fromEmail.includes("onboarding@resend.dev") && process.env.NODE_ENV === "production") {
-        console.warn("⚠️  Using onboarding@resend.dev in production. Emails can only be sent to the account owner's email. Verify a domain at resend.com/domains for production use.");
+      if (!emailTransporter) {
+        res.status(503);
+        throw new Error(
+          "Email service is not configured. Please check EMAIL_USER and EMAIL_PASSWORD."
+        );
       }
 
-      const { data, error } = await resend.emails.send({
-        from: fromEmail,
-        to: [normalizedEmail],
+      const mailOptions = {
+        from: `"AgriGate" <${process.env.EMAIL_USER}>`,
+        to: normalizedEmail,
         subject: "AgriGate - Email Verification OTP",
         html: `
           <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f4;">
@@ -666,17 +671,15 @@ const sendOTP = asyncHandler(async (req, res) => {
             </div>
           </div>
         `,
-      });
+      };
 
-      if (error) {
-        throw new Error(error.message);
-      }
+      const info = await emailTransporter.sendMail(mailOptions);
 
       console.log(`✓ Email OTP sent to ${normalizedEmail}`);
-      console.log("Resend Email ID:", data?.id);
+      console.log("Message ID:", info.messageId);
 
     } catch (error) {
-      console.error("❌ Resend email failed:", error.message);
+      console.error("❌ Gmail SMTP email failed:", error.message);
 
       // Remove OTP if email delivery request fails
       await OTP.deleteOne({
