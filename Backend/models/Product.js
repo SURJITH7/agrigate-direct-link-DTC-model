@@ -13,7 +13,7 @@ const productSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["approved", "pending", "rejected"],
-      default: "pending",
+      default: "approved",
     },
     farmerId: {
       type: mongoose.Schema.Types.ObjectId,
