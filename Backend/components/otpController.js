@@ -1,3 +1,4 @@
+
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,16 +25,20 @@ dotenv.config({
 // EMAIL PROVIDER CONFIGURATION
 // ============================================
 
-// Set EMAIL_PROVIDER=gmail locally.
-// Set EMAIL_PROVIDER=resend on Render.
+// Local: EMAIL_PROVIDER=gmail
+// Render: EMAIL_PROVIDER=apps_script
 
 const emailProvider =
   process.env.EMAIL_PROVIDER ||
-  (process.env.NODE_ENV === "production" ? "resend" : "gmail");
+  (process.env.NODE_ENV === "production" ? "apps_script" : "gmail");
 
 let emailTransporter = null;
 let resendClient = null;
 
+const appsScriptUrl = process.env.AGRI_OTP_SCRIPT_URL;
+const appsScriptSecret = process.env.AGRI_OTP_SECRET;
+
+// Gmail configuration
 if (emailProvider === "gmail") {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
     emailTransporter = nodemailer.createTransport({
@@ -53,12 +58,24 @@ if (emailProvider === "gmail") {
   } else {
     console.warn("⚠️ Gmail credentials are missing");
   }
-} else if (emailProvider === "resend") {
+}
+
+// Resend configuration
+else if (emailProvider === "resend") {
   if (process.env.RESEND_API_KEY) {
     resendClient = new Resend(process.env.RESEND_API_KEY);
     console.log("✓ Resend email service configured");
   } else {
     console.warn("⚠️ RESEND_API_KEY is missing");
+  }
+}
+
+// Google Apps Script configuration
+else if (emailProvider === "apps_script") {
+  if (appsScriptUrl && appsScriptSecret) {
+    console.log("✓ Google Apps Script email service configured");
+  } else {
+    console.warn("⚠️ Apps Script URL or secret is missing");
   }
 } else {
   console.error(`❌ Unsupported EMAIL_PROVIDER: ${emailProvider}`);
@@ -89,7 +106,9 @@ if (
 // EMAIL SENDER FUNCTION
 // ============================================
 
-const sendEmail = async ({ to, subject, html }) => {
+const sendEmail = async ({ to, subject, html, otp }) => {
+
+  // Gmail
   if (emailProvider === "gmail") {
     if (!emailTransporter) {
       throw new Error("Gmail email service is not configured");
@@ -103,6 +122,7 @@ const sendEmail = async ({ to, subject, html }) => {
     });
   }
 
+  // Resend
   if (emailProvider === "resend") {
     if (!resendClient) {
       throw new Error("Resend email service is not configured");
@@ -122,6 +142,44 @@ const sendEmail = async ({ to, subject, html }) => {
     }
 
     return data;
+  }
+
+  // Google Apps Script
+  if (emailProvider === "apps_script") {
+    if (!appsScriptUrl || !appsScriptSecret) {
+      throw new Error(
+        "Google Apps Script email service is not configured"
+      );
+    }
+
+    const response = await fetch(appsScriptUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: appsScriptSecret,
+        email: to,
+        otp,
+      }),
+      signal: AbortSignal.timeout(20000),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Apps Script request failed with status ${response.status}`
+      );
+    }
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(
+        result.message || "Apps Script email delivery failed"
+      );
+    }
+
+    return result;
   }
 
   throw new Error("Invalid email provider configuration");
@@ -163,7 +221,9 @@ const sendOTP = asyncHandler(async (req, res) => {
 
     if (
       (emailProvider === "gmail" && !emailTransporter) ||
-      (emailProvider === "resend" && !resendClient)
+      (emailProvider === "resend" && !resendClient) ||
+      (emailProvider === "apps_script" &&
+        (!appsScriptUrl || !appsScriptSecret))
     ) {
       res.status(503);
       throw new Error("Email service is not configured");
@@ -182,12 +242,13 @@ const sendOTP = asyncHandler(async (req, res) => {
 
     if (recentOTP) {
       res.status(429);
-      throw new Error("Please wait 30 seconds before requesting a new OTP");
+      throw new Error(
+        "Please wait 30 seconds before requesting a new OTP"
+      );
     }
 
     const otp = generateOTP();
 
-    // Create the new OTP record
     const otpRecord = await OTP.create({
       email: normalizedEmail,
       otp,
@@ -231,6 +292,7 @@ const sendOTP = asyncHandler(async (req, res) => {
         to: normalizedEmail,
         subject: "AgriGate - Email Verification OTP",
         html,
+        otp,
       });
 
       console.log(`✓ Email OTP sent using ${emailProvider}`);
@@ -238,7 +300,7 @@ const sendOTP = asyncHandler(async (req, res) => {
       if (result?.messageId) {
         console.log("Message ID:", result.messageId);
       } else if (result?.id) {
-        console.log("Resend Email ID:", result.id);
+        console.log("Email ID:", result.id);
       }
 
       // Delete older OTP records only after successful sending
@@ -254,6 +316,7 @@ const sendOTP = asyncHandler(async (req, res) => {
         email: normalizedEmail,
         method: "email",
       });
+
     } catch (error) {
       console.error("❌ Email sending failed:", error.message);
 
@@ -286,7 +349,6 @@ const sendOTP = asyncHandler(async (req, res) => {
       throw new Error("Please provide a valid phone number");
     }
 
-    // Preserves your existing phone-number formatting
     const formattedPhone =
       normalizedPhone.length === 10
         ? `+1${normalizedPhone}`
@@ -302,7 +364,9 @@ const sendOTP = asyncHandler(async (req, res) => {
 
     if (recentOTP) {
       res.status(429);
-      throw new Error("Please wait 30 seconds before requesting a new OTP");
+      throw new Error(
+        "Please wait 30 seconds before requesting a new OTP"
+      );
     }
 
     const otp = generateOTP();
@@ -337,13 +401,16 @@ const sendOTP = asyncHandler(async (req, res) => {
         phone: formattedPhone.slice(-4),
         method: "sms",
       });
+
     } catch (error) {
       console.error("❌ SMS sending failed:", error.message);
 
       await OTP.deleteOne({ _id: otpRecord._id });
 
       res.status(500);
-      throw new Error("Failed to send OTP via SMS. Please try email instead.");
+      throw new Error(
+        "Failed to send OTP via SMS. Please try email instead."
+      );
     }
   }
 });
@@ -382,6 +449,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
     };
 
     verifiedValue = normalizedEmail;
+
   } else {
     if (!phone) {
       res.status(400);
@@ -481,7 +549,6 @@ const resendOTP = asyncHandler(async (req, res) => {
     throw new Error("Method must be either 'email' or 'sms'");
   }
 
-  // Reuse the existing sendOTP logic
   req.body = {
     email,
     phone,
