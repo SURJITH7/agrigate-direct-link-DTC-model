@@ -581,10 +581,10 @@ const sendOTP = asyncHandler(async (req, res) => {
   // ==========================================
 
   if (method === "email") {
-    if (!resend) {
+    if (!emailTransporter) {
       res.status(503);
       throw new Error(
-        "Email service is not configured. Please check RESEND_API_KEY."
+        "Email service is not configured. Please check EMAIL_USER and EMAIL_PASSWORD."
       );
     }
 
