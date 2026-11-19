@@ -626,8 +626,16 @@ const sendOTP = asyncHandler(async (req, res) => {
 
     // Send OTP using Resend
     try {
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "AgriGate <onboarding@resend.dev>";
+
+      // Warning: onboarding@resend.dev only allows sending to the account owner's email
+      // To send to other recipients, verify a domain at resend.com/domains and set RESEND_FROM_EMAIL
+      if (fromEmail.includes("onboarding@resend.dev") && process.env.NODE_ENV === "production") {
+        console.warn("⚠️  Using onboarding@resend.dev in production. Emails can only be sent to the account owner's email. Verify a domain at resend.com/domains for production use.");
+      }
+
       const { data, error } = await resend.emails.send({
-        from: "AgriGate <onboarding@resend.dev>",
+        from: fromEmail,
         to: [normalizedEmail],
         subject: "AgriGate - Email Verification OTP",
         html: `

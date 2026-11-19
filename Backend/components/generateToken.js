@@ -11,7 +11,9 @@ const generateToken = (res, userId, returnToken = false) => {
     expiresIn: "1d",
   });
   if (res) {
-    const isProd = process.env.NODE_ENV === "production";
+    // Detect production: Render sets RENDER=true, otherwise check NODE_ENV
+    const isProd =
+      process.env.NODE_ENV === "production" || process.env.RENDER === "true";
 res.cookie("token", token, {
   httpOnly: true,
   secure: isProd,
