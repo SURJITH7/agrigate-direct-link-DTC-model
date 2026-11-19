@@ -507,11 +507,19 @@ let emailTransporter = null;
 try {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
     emailTransporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
     console.log("✓ Gmail SMTP email service configured");
   } else {
